@@ -1,0 +1,6 @@
+totalAmount,isPremiumCustomer,isFestivalOfferEnabled,expectedGST
+10000,false,false,1710.00
+25000,false,false,4050.00
+25000,true,false,3825.00
+25000,true,true,3600.00
+50000,true,true,7200.00

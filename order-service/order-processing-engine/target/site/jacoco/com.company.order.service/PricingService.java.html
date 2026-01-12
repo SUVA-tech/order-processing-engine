@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PricingService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">order-processing-engine</a> &gt; <a href="index.source.html" class="el_package">com.company.order.service</a> &gt; <span class="el_source">PricingService.java</span></div><h1>PricingService.java</h1><pre class="source lang-java linenums">package com.company.order.service;
+
+<span class="fc" id="L3">public class PricingService {</span>
+
+    private static final int MAX_DISCOUNT_PERCENT = 25;
+
+    public int calculateDiscountPercentage(double totalAmount, boolean isPremiumCustomer, boolean isFestivalOfferEnabled) {
+<span class="fc" id="L8">        int discountPercent = 0;</span>
+
+<span class="fc bfc" id="L10" title="All 2 branches covered.">        if (totalAmount &gt;= 25_000) {</span>
+<span class="fc" id="L11">            discountPercent = 10;</span>
+<span class="fc bfc" id="L12" title="All 2 branches covered.">        } else if (totalAmount &gt;= 10_000) {</span>
+<span class="fc" id="L13">            discountPercent = 5;</span>
+        }
+
+<span class="fc bfc" id="L16" title="All 2 branches covered.">        if (isPremiumCustomer) {</span>
+<span class="fc" id="L17">            discountPercent += 5;</span>
+        }
+
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        if (isFestivalOfferEnabled) {</span>
+<span class="fc" id="L21">            discountPercent += 5;</span>
+        }
+
+<span class="fc" id="L24">        discountPercent = Math.min(discountPercent, MAX_DISCOUNT_PERCENT);</span>
+
+<span class="fc" id="L26">        return discountPercent;</span>
+    }
+
+    // GREEN: Implement GST calculation
+    private double roundToTwoDecimals(double value) {
+<span class="fc" id="L31">        return Math.round(value * 100.0) / 100.0;</span>
+    }
+
+    public double calculateGST(double totalAmount, boolean isPremiumCustomer, boolean isFestivalOfferEnabled) {
+<span class="fc" id="L35">        int discountPercent = calculateDiscountPercentage(totalAmount, isPremiumCustomer, isFestivalOfferEnabled);</span>
+<span class="fc" id="L36">        double discountedAmount = totalAmount * (1 - discountPercent / 100.0);</span>
+<span class="fc" id="L37">        double gst = discountedAmount * 0.18;</span>
+<span class="fc" id="L38">        return roundToTwoDecimals(gst);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
